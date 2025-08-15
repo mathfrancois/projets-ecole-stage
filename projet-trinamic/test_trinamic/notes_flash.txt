@@ -1,0 +1,21 @@
+Pour flash, il faut suivre les indications dans le README.
+Petites remarques supplémentaires:
+- YOUR_MBED_OS_TARGET = ZEST_CORE_STM32L4A6RG
+- YOUR_JLINK_DEVICE = stm32l4a6rg
+
+En résumé, on peut exécuter les commandes suivantes, dans l'ordre:
+1. mbed deploy
+2. mbed config root .
+3. mbed target YOUR_MBED_OS_TARGET
+4. mbed toolchain GCC_ARM
+5. mbed compile
+6. sixtron_flash YOUR_JLINK_DEVICE BUILD/YOUR_MBED_OS_TARGET/GCC_ARM/enseirb-pfa-trinamic.elf
+
+Les étapes 2, 3 et 4 ne sont pas obligatoires: elles sont à réaliser une fois au début, car elles permettent de configurer un fichier ".mbed".
+Ce fichier définit les valeurs des variables config, target et toolchain, nécessaires à mbed.
+Le fichier ".mbed" a donc été rajouté sur le dépôt au préalable, et ces étapes ne sont donc plus à réaliser.
+
+Les commandes à effectuer sont donc les suivantes:
+1. mbed deploy
+2. mbed compile
+3. sixtron_flash stm32l4a6rg BUILD/ZEST_CORE_STM32L4A6RG/GCC_ARM/enseirb-pfa-trinamic.elf
