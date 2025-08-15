@@ -1,0 +1,27 @@
+@startuml server_addFish_sequence
+
+title Traitement serveur de la commande "addFish"
+
+actor Client
+participant "Serveur (main loop)" as Server
+participant "handle_received_data()" as HRD
+participant "process_client_message()" as PCM
+participant "add_fish()" as AddFish
+
+Client -> Server : "addFish julesClown at 10x50, 200x100, Horizontal"
+Server -> HRD : handle_received_data(client_fd)
+
+HRD -> PCM : process_client_message(...)
+
+PCM -> AddFish : add_fish(shoal, name, x, y, w, h, model)
+AddFish --> PCM : succès ou échec (bool)
+
+alt Poisson ajouté avec succès
+    PCM -> HRD : réponse = "OK\\n"
+    HRD -> Client : write(client_fd, "OK\\n")
+else Poisson non ajouté
+    PCM -> HRD : réponse = "NOK\\n"
+    HRD -> Client : write(client_fd, "NOK\\n")
+end
+
+@enduml

@@ -1,0 +1,135 @@
+@startuml client_archi
+
+title Architecture Client Java
+
+' skinparam class {
+'     BackgroundColor White
+'     ArrowColor Black
+'     BorderColor Black
+'     FontColor Black
+' }
+
+' skinparam classAttribute {
+'     FontColor Navy
+' }
+
+' skinparam classMethod {
+'     FontColor DarkGreen
+' }
+
+' skinparam classHeaderBackgroundColor #e6f0ff
+' skinparam shadowing false
+' skinparam style strictuml
+
+' -------------------------------
+' CLASSES
+' -------------------------------
+
+class Main {
+    +start(Stage)
+    +main(String[])
+}
+
+class ClientController {
+    -networkManager : NetworkManager
+    -aquariumView : AquariumView
+    +getStatus()
+    +sendListCommand(command)
+    +addFish(...)
+    +delFish(...)
+    +startScheduledLs()
+    +startFish(...)
+    +Ls()
+    +getFishes()
+    +getFishesContinuously()
+}
+
+class CommandHandler {
+    -controller : ClientController
+    +handleCommand(input)
+}
+
+class CommandScheduler {
+    -scheduler : ScheduledExecutorService
+    -controller : ClientController
+    +startScheduledLs()
+    +stopScheduledLs()
+}
+
+class AquariumView {
+    -fishMap : Map<Fish, ImageView>
+    +addFish(fish)
+    +removeFish(fish)
+    +getFish(name)
+    +animateFish(fish)
+    +contains(fish)
+    +getFishStatus()
+}
+
+class NetworkManager {
+    -socket : Socket
+    -responseQueue : BlockingQueue<String>
+    -continuousListQueue : BlockingQueue<String>
+    +loadConfig(file)
+    +connectToController()
+    +sendCommand(command)
+    +sendCommandAndWaitForResponse(command)
+    +sendCommandAndWaitFor3Lists(command)
+    +startPingLoop()
+    +startListeningLoop()
+}
+
+class Fish {
+    -name : String
+    -x, y : double
+    -width, height : double
+    -moveFunction : String
+    -movementQueue : Queue<Movement>
+    +addMovement(m)
+    +pollMovement()
+}
+
+class Movement {
+    -initialX, initialY : int
+    -targetX, targetY : int
+    -durationInSeconds : int
+    -width, height : int
+    +getTargetX()
+    +getTargetY()
+    +getDurationInSeconds()
+}
+
+class MovementParser {
+    +parseFishMovements(response)
+}
+
+
+' RELATIONS AVEC COMMENTAIRES
+
+Main --> CommandHandler : gère les commandes du user
+
+ClientController --> NetworkManager : communique avec le serveur
+ClientController --> AquariumView : update l'affichage
+ClientController --> Fish : crée/modifie
+
+ClientController --> CommandScheduler : planifie les commandes automatiques
+ClientController --> MovementParser : fait parser 
+
+CommandHandler --> ClientController : délègue l'execution des commandes
+
+CommandScheduler --> ClientController : exécute périodiquement ls
+
+
+AquariumView --> Movement : anime 
+
+
+
+Fish --> Movement : stocke
+
+
+MovementParser --> Movement : génère 
+
+
+AquariumView -|> Pane : hérite d'une classe JavaFX
+
+@enduml

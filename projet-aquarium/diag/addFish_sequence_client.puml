@@ -1,0 +1,45 @@
+@startuml addFish_sequence_client
+
+' Diagramme de séquence : traitement de la commande "addFish"
+' Ce diagramme montre comment une commande "addFish" saisie par l'utilisateur
+' est traitée en chaîne par les différentes classes de l'application
+
+actor User
+
+' L'utilisateur tape une commande dans le terminal
+User -> CommandHandler : handleCommand("addFish ...")
+' -> Le CommandHandler analyse la commande textuelle
+
+' Le CommandHandler délègue l'action à ClientController
+CommandHandler -> ClientController : addFish(name, x, y, w, h, moveFunction)
+' -> Le contrôleur crée un objet Fish avec les paramètres
+' -> Il prépare et envoie la commande réseau vers le serveur
+
+' Envoie de la commande au serveur via NetworkManager
+ClientController -> NetworkManager : sendCommandAndWaitForResponse("addFish ...")
+NetworkManager -> Server : "addFish ..." (via socket)
+' -> Le message "addFish ..." est transmis en texte au serveur
+
+' Le serveur répond (ex: "OK" ou "NOK")
+Server --> NetworkManager : "OK" ou "NOK"
+NetworkManager --> ClientController : réponse ("OK")
+
+' On vérifie si la réponse est positive
+alt Si réponse == OK
+    ' Vérifie si le poisson est dans la zone visible de l'aquarium
+    ClientController -> AquariumView : contains(fish)
+
+    alt fish visible
+        ' Si visible : le poisson est ajouté à l'interface graphique
+        ClientController -> AquariumView : addFish(fish)
+    else fish non visible
+        ' Sinon on affiche un message mais on ne l’ajoute pas à la vue
+        note right of ClientController : poisson non affiché
+    end
+
+else
+    ' Si le serveur refuse l’ajout
+    note right of ClientController : ajout refusé
+end
+
+@enduml

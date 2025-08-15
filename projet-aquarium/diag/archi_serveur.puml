@@ -1,0 +1,106 @@
+@startuml Architecture Serveur
+title Architecture Serveur
+
+class Serveur {
+    + main()
+    + process_command()
+    + process_client_message()
+    + handle_received_data()
+}
+
+class ServerContext {
+    + server_sock_fd : int
+    + active_fds : fd_set
+    + client_sockets[MAX_VUES] : int
+    + client_buffers[MAX_VUES][MAX_BUFFER_SIZE] : char
+    + timeout : timeval
+    + max_fd : int
+    + init_server_context()
+    + accept_client_connection()
+    + disconnect_client()
+}
+
+class Aquarium {
+    + width : int
+    + height : int
+    + vues[MAX_VUES] : Vue
+    + nb_vues : int
+    + create_vue()
+    + add_vue()
+    + del_vue()
+    + load_aquarium()
+    + save_aquarium()
+    + get_vue_by_id()
+    + get_vue_by_fd()
+    + get_free_vue()
+}
+
+class Vue {
+    + id : int
+    + x : int
+    + y : int
+    + width : int
+    + height : int
+    + associated_fd : int
+    + is_free : bool
+}
+
+class ShoalFish {
+    + fishes[MAX_POISSONS] : Fish
+    + nb_poissons : int
+    + add_fish()
+    + del_fish()
+    + start_fish()
+    + update_fish_position()
+    + show_fishes()
+}
+
+class Fish {
+    + name : char[MAX_NAME]
+    + x : float
+    + y : float
+    + width : float
+    + height : float
+    + mobilityModel : char[MAX_NAME]
+    + started : int
+    + target_x : int
+    + target_y : int
+    + remaining_duration : int
+}
+
+class Config {
+    + load_config()
+    + get_controller_port()
+    + get_display_timeout_value()
+    + get_fish_update_interval()
+}
+
+class Log {
+    + log_info()
+    + log_error()
+    + log_warn()
+    + init_log()
+}
+
+class FishMovement {
+    + generate_next_fish_step()
+    + generate_random_waypoint()
+    + send_fish_list_step()
+    + generate_fish_list()
+}
+
+Serveur --> ServerContext : utilise
+' Serveur --> Aquarium : manipule
+Serveur --> ShoalFish : manipule
+Serveur --> Config : charge
+Serveur --> Log : journalise
+Serveur --> FishMovement : gère les déplacements
+
+ServerContext --> Aquarium : associe les vues
+Aquarium --> Vue : contient
+ShoalFish --> Fish : contient
+FishMovement --> ShoalFish : met à jour
+FishMovement --> Aquarium : calcule les positions
+FishMovement --> Fish : met à jour les cibles
+
+@enduml
