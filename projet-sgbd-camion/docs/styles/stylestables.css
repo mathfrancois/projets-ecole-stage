@@ -1,0 +1,126 @@
+.listcontainer {
+    margin-right: 40px;
+}
+
+.list {
+    border: solid 3px black;
+}
+
+.list {
+    width: 100%;
+    height: 400px; 
+    overflow-y: auto; 
+    padding: 0;
+    box-sizing: border-box;
+    border: solid 1px yellow;
+    background-color: rgba(211, 211, 211, 0.583);
+    box-shadow: 6px 6px 0px rgba(51, 49, 49, 0.58);
+}
+
+#sectionrequetesavancees .listcontainer {
+    padding: 0px 0px 0px 0px; 
+    width: 1100px;
+}
+
+.nomsattributs {
+    display: flex;
+    font-weight: bold;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #152498; 
+    text-align: center;
+    border-bottom: 2px solid #333;
+    color: yellow;
+    position: sticky;
+    top: 0; 
+    z-index: 1; 
+}
+
+
+.nomsattributs .entete {
+    flex: 1;
+    font-size: 14px;
+}
+
+
+.entree {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.entree:nth-child(odd) {
+    background-color: rgba(176, 175, 175, 0.685);
+    color: #000; 
+}
+
+
+.entree:nth-child(even) {
+    background-color:rgba(21, 45, 226, 0.473);
+    color: #fff; 
+}
+
+
+.attribut {
+    flex: 1;
+    text-align: center;
+    font-size: 12px;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+.entree:hover {
+    background-color: rgba(255, 255, 0, 0.535);
+    cursor: pointer;
+}
+
+
+@media (max-width: 600px) {
+    .nomsattributs .entete,
+    .attribut {
+        font-size: 12px;
+        padding: 3px;
+    }
+}
+
+
+.tablesql {
+    width: 100%;
+}
+
+
+
+.modifbuttoncontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+.modifbutton {
+    margin: none;
+    cursor: pointer;
+    overflow: hidden;
+    color: black;
+    display: block;
+    transition: transform 0.3s ease;
+    background-color: lightgray;
+    box-sizing: border-box;
+    height: min-content;
+}
+
+.selectlivraisonstate {
+    align-items: center;
+    justify-content: center;
+}
+
+.statut-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-top: 10px;
+    margin-left: 8px;
+}
