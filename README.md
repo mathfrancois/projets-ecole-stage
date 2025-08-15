@@ -37,7 +37,7 @@ Ce dépôt sert de vitrine technique pour présenter mes compétences et réalis
 ---
 
 ## Me contacter
-- **LinkedIn** : [Mon profil LinkedIn](www.linkedin.com/in/mathieu-francois3)
+- **LinkedIn** : [Mon profil LinkedIn](https://www.linkedin.com/in/mathieu-francois3/)
 - **Email** : francois.mathieu0306@gmail.com
 - **CV** : [Télécharger mon CV](lien-vers-CV)
 
