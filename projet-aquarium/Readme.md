@@ -89,4 +89,8 @@ delFish <nom>
 Dans le fichier affichage.cfg qui se trouve dans client/ressources, changez la valeur de controller-address pour mettre l'adresse IP de l'appareil qui a lancé le serveur.
 De plus, il faut que les clients et le serveur soient connectés au même wifi.
 
+## Auteurs
+
+Jules Maulard, Cédric Dérache, César Larragueta, Mathieu Francois
+
 
