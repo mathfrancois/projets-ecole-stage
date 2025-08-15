@@ -26,7 +26,7 @@ Ce dépôt sert de vitrine technique pour présenter mes compétences et réalis
   
 ---
 
-### 💼 Expériences professionnelles
+### Expériences professionnelles
 - **Stage – Université de Cantabrie (Santander, Espagne)** 
   **Interface web d’AutoML explicable pour le domaine médical** 
   Mai 2025 – Septembre 2025 
